@@ -30,6 +30,7 @@ public class DBManager implements IDBManager {
 
     // Методы работы со студентами
 
+    // Метод для getAllActiveStudents и getStudentById
     public void parseStudent(ResultSet rs, Student student) throws SQLException {
         student.setid(rs.getInt("id"));
         student.setSurname(rs.getString("surname"));
@@ -38,6 +39,7 @@ public class DBManager implements IDBManager {
         student.setDate(rs.getDate("date"));
         student.setStatus(1);
     }
+
     @Override
     public List<Student> getAllActiveStudents() {
         ArrayList<Student> students = new ArrayList<>();
@@ -126,6 +128,7 @@ public class DBManager implements IDBManager {
 
     // Методы работы с дисциплинами
 
+    // Метод для getDisciplinesByTerm и getAllActiveDisciplines
     public List<Discipline> parseDiscipline(ArrayList<Discipline> disciplines) {
         try {
             ResultSet rs = connect(query);
