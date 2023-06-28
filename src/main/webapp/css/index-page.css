@@ -1,0 +1,24 @@
+/* Кнопки для перехода по разделам */
+
+.sections ul {
+    display: block;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.sections li {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    margin: 0px 100px;
+}
+
+.sections li a {
+    text-decoration: none;
+    color: rgb(236, 86, 49);
+}
+
+.sections li a:hover {
+    text-decoration: underline;
+}
