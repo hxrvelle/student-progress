@@ -1,0 +1,25 @@
+.sections-buttons {
+    width: 100%;
+    text-align: center;
+}
+
+.sections-buttons ul {
+    display: block;
+    width: 100%;
+}
+
+.sections-buttons li {
+    display: inline-block;
+    width: 500px;
+    line-height: 60px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.sections-buttons li:first-child {
+    margin-right: 30px;
+}
+
+.table h3 {
+    margin-bottom: 20px;
+}
