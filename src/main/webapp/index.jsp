@@ -2,14 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index-page.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index-page.css" type="text/css">
 </head>
 <body>
 <div class="wrapper">
     <header>
         <div class="logo">
-            <img src="../images/logo.png">
+            <img src="${pageContext.request.contextPath}/resources/images/logo.png">
         </div>
         <div class="back_to_main">
             <a href="/">На главную</a>

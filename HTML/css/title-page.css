@@ -7,13 +7,6 @@
     text-align: center;
 }
 
-.sections li {
-    display: inline-block;
-    width: 100px;
-    text-align: center;
-    margin: 0px 100px;
-}
-
 .sections li a {
     text-decoration: none;
     color: rgb(236, 86, 49);

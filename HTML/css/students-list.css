@@ -1,6 +1,7 @@
 .sections-buttons {
-    width: 100%;
+    width: 70%;
     text-align: center;
+    float: right;
 }
 
 .sections-buttons ul {
@@ -9,7 +10,7 @@
 }
 
 .sections-buttons li {
-    display: inline-block;
+    display: block;
     width: 500px;
     line-height: 60px;
     font-size: 15px;

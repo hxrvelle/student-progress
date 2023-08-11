@@ -1,6 +1,8 @@
 package database;
 
+import constants.Constants;
 import entity.Discipline;
+import entity.Mark;
 import entity.Student;
 import entity.Term;
 
@@ -14,25 +16,23 @@ public class DBManager implements IDBManager {
     // Подключение к БД
     public Statement sqlConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/students?user=root&password=Sxwyxr.88");
+        Connection connection = DriverManager.getConnection(Constants.CONNECT_DB_URL);
         return connection.createStatement();
     }
     public ResultSet connect(String query) throws SQLException, ClassNotFoundException {
         return sqlConnection().executeQuery(query);
     }
-
     public void updateConnect(String query) throws SQLException, ClassNotFoundException {
         sqlConnection().executeUpdate(query);
     }
     public void voidConnect(String query) throws ClassNotFoundException, SQLException {
         sqlConnection().execute(query);
     }
-
     // Методы работы со студентами
 
     // Метод для getAllActiveStudents и getStudentById
     public void parseStudent(ResultSet rs, Student student) throws SQLException {
-        student.setid(rs.getInt("id"));
+        student.setId(rs.getInt("id"));
         student.setSurname(rs.getString("surname"));
         student.setName(rs.getString("name"));
         student.setGroup(rs.getString("group"));
@@ -73,9 +73,8 @@ public class DBManager implements IDBManager {
     }
 
     @Override
-    public void createStudent(String surname, String name, String group, Date date) {
-        Timestamp timestamp = new Timestamp(date.getTime());
-        query = "INSERT INTO `student` (`surname`, `name`, `group`, `date`) VALUES ('" + surname + "', '" + name + "', '" + group + "', '" + timestamp + "');";
+    public void createStudent(String surname, String name, String group, String date) {
+        query = "INSERT INTO `student` (`surname`, `name`, `group`, `date`) VALUES ('" + surname + "', '" + name + "', '" + group + "', '" + date + "');";
         try {
             updateConnect(query);
         } catch (Exception e) {
@@ -84,9 +83,8 @@ public class DBManager implements IDBManager {
     }
 
     @Override
-    public void modifyStudent(int id, String surname, String name, String group, Date date) {
-        Timestamp timestamp = new Timestamp(date.getTime());
-        query = "UPDATE `students`.`student` SET `surname` ='" + surname + "', `name` = '" + name + "', `group` ='" + group + "', `date` = '" + timestamp + "' WHERE (`id` ='" + id + "');";
+    public void modifyStudent(int id, String surname, String name, String group, String date) {
+        query = "UPDATE `students`.`student` SET `surname` ='" + surname + "', `name` = '" + name + "', `group` ='" + group + "', `date` = '" + date + "' WHERE (`id` ='" + id + "');";
         try {
             updateConnect(query);
         } catch (Exception e) {
@@ -157,5 +155,12 @@ public class DBManager implements IDBManager {
         ArrayList<Discipline> disciplines = new ArrayList<>();
         query = "SELECT * FROM discipline WHERE status = 1;";
         return parseDiscipline(disciplines);
+    }
+
+    @Override
+    public List<Mark> getMarksByStudentAndTerm(String idTerm, String idStudent) {
+        List<Mark> marks = new ArrayList<>();
+
+        return marks;
     }
 }

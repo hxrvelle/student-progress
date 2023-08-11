@@ -24,11 +24,11 @@ public class Student {
         this.status = status;
     }
 
-    public int getid() {
+    public int getId() {
         return id;
     }
 
-    public void setid(int studentId) {
+    public void setId(int studentId) {
         this.id = studentId;
     }
 

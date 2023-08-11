@@ -2,14 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-  <link rel="stylesheet" href="../css/main.css" type="text/css">
-  <link rel="stylesheet" href="../css/disciplines-terms-list.css" type="text/css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" type="text/css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/disciplines-terms-list.css" type="text/css">
 </head>
 <body>
   <div class="wrapper">
     <header>
     <div class="logo">
-      <img src="../images/logo.png">
+      <img src="${pageContext.request.contextPath}/resources/images/logo.png">
     </div>
     <div class="back_to_main">
       <a href="/">На главную</a>
@@ -38,9 +38,15 @@
         </c:forEach>
       </table>
       <div class="buttons">
-        <button class="action-button-type2"><a href="/discipline-creating">СОЗДАТЬ ДИСЦИПЛИНУ</a></button>
-        <button class="action-button-type2"><a href="/discipline-modifying">МОДИФИЦИРОВАТЬ ВЫБРАННУЮ ДИСЦИПЛИНУ</a></button>
-        <button class="action-button-type2"><a href="#">УДАЛИТЬ ВЫБРАННУЮ ДИСЦИПЛИНУ</a></button>
+        <form action="/discipline-creating" method="get">
+          <input type="submit" class="action-button-type2" value="СОЗДАТЬ ДИСЦИПЛИНУ" />
+        </form>
+        <form action="/discipline-modifying" method="get">
+          <input type="submit" class="action-button-type2" value="МОДИФИЦИРОВАТЬ ВЫБРАННУЮ ДИСЦИПЛИНУ" />
+        </form>
+        <form action="/" method="get">
+          <input type="submit" class="action-button-type2" value="УДАЛИТЬ ВЫБРАННУЮ ДИСЦИПЛИНУ" />
+        </form>
       </div>
     </div>
     <div class="clearfix"> </div>

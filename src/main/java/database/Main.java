@@ -52,10 +52,10 @@ public class Main {
 //        СЕМЕСТРЫ
 
 //        Получение всех активных семестров
-//        List<Term> terms = manager.getAllActiveTerm();
-//        for (Term t:terms) {
-//            System.out.println(t);
-//        }
+        List<Term> terms = manager.getAllActiveTerm();
+        for (Term t:terms) {
+            System.out.println(t);
+        }
 
 //        ДИСЦИПЛИНЫ
 

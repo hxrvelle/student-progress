@@ -174,21 +174,14 @@ header a:hover {
     border: 1px solid rgb(236, 86, 49);
     border-radius: 60px;
     font-size: 15px;
-}
-
-.action-button-type1 a {
-    display: block;
-    border-radius: 60px;
-    text-decoration: none;
     color: rgb(236, 86, 49);
     background-color: white;
-    width: 100%;
-    line-height: 70px;
 }
 
-.action-button-type1 a:hover {
+.action-button-type1:hover {
     background-color: rgb(236, 86, 49);
     color: white;
+    cursor: pointer;
 }
 
 /* Кнопка действия тип 2 */
@@ -203,18 +196,10 @@ header a:hover {
     font-size: 15px;
 }
 
-.action-button-type2 a {
-    display: block;
-    border-radius: 30px;
-    text-decoration: none;
-    color: rgb(236, 86, 49);
-    width: 100%;
-    line-height: 60px;
-}
-
-.action-button-type2 a:hover {
+.action-button-type2:hover {
     background-color: rgb(236, 86, 49);
     color: white;
+    cursor: pointer;
 }
 
 /* Кнопка действия тип 3 */
@@ -241,6 +226,7 @@ header a:hover {
 .action-button-type3 a:hover {
     background-color: rgb(236, 86, 49);
     color: white;
+    cursor: pointer;
 }
 
 /* Поле ввода */
