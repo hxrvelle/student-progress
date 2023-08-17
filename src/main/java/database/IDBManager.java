@@ -20,6 +20,7 @@ public interface IDBManager {
     void modifyStudent(int id, String surname, String name, String group, String date);
 
     List<Term> getAllActiveTerm();
+    Term getTermById(String id);
 
     List<Discipline> getDisciplinesByTerm(int id);
 
@@ -28,4 +29,6 @@ public interface IDBManager {
     List<Discipline> getAllActiveDisciplines();
 
     List<Mark> getMarksByStudentAndTerm(String idTerm, String idStudent);
+
+    boolean canLogin(String login, String password, String role);
 }

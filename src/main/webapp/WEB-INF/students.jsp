@@ -16,9 +16,18 @@
         <div class="back_to_main">
             <a href="/">На главную</a>
         </div>
-        <div class="logout">
-            <a href="#">Logout</a>
-        </div>
+        <c:choose>
+            <c:when test="${isLogged == true}">
+                <div class="logout">
+                    <a href="/logout">Logout</a>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="logout">
+                    <a href="/login">Login</a>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </header>
     <section class="title">
         <h2>Система управления студентами и их успеваемостью</h2>
@@ -28,19 +37,23 @@
             <li>
                 <input type="submit" class="action-button-type2" onclick="progressStudent()" value="ПРОСМОТРЕТЬ УСПЕВАЕМОСТЬ ВЫБРАННОГО СТУДЕНТОВ" />
             </li>
-            <li>
-                <form action="/student-create" method="get">
-                    <input type="submit" class="action-button-type2" value="СОЗДАТЬ СТУДЕНТА" />
-                </form>
-            </li>
+            <c:if test="${role eq 1}">
+                <li>
+                    <form action="/student-create" method="get">
+                        <input type="submit" class="action-button-type2" value="СОЗДАТЬ СТУДЕНТА" />
+                    </form>
+                </li>
+            </c:if>
         </ul>
         <ul class="second-row">
-            <li>
-                <input type="submit" class="action-button-type2" onclick="modifyStudent()" value="МОДИФИЦИРОВАТЬ ВЫБРАННОГО СТУДЕНТА" />
-            </li>
-            <li>
-                <input type="submit" class="action-button-type2" onclick="deleteStudents()" value="УДАЛИТЬ ВЫБРАННЫХ СТУДЕНТОВ" />
-            </li>
+            <c:if test="${role eq 1}">
+                <li>
+                    <input type="submit" class="action-button-type2" onclick="modifyStudent()" value="МОДИФИЦИРОВАТЬ ВЫБРАННОГО СТУДЕНТА" />
+                </li>
+                <li>
+                    <input type="submit" class="action-button-type2" onclick="deleteStudents()" value="УДАЛИТЬ ВЫБРАННЫХ СТУДЕНТОВ" />
+                </li>
+            </c:if>
         </ul>
     </section>
 

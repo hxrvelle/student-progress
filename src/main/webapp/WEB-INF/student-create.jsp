@@ -25,9 +25,18 @@
         <div class="back">
             <a href="#" onclick="history.back()">Назад</a>
         </div>
-        <div class="logout">
-            <a href="#">Logout</a>
-        </div>
+        <c:choose>
+            <c:when test="${isLogged == true}">
+                <div class="logout">
+                    <a href="/logout">Logout</a>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="logout">
+                    <a href="/login">Login</a>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </header>
     <section class="title">
         <h2>Система управления студентами и их успеваемостью</h2>

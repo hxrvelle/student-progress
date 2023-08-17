@@ -28,9 +28,7 @@ public class DBManager implements IDBManager {
     public void voidConnect(String query) throws ClassNotFoundException, SQLException {
         sqlConnection().execute(query);
     }
-    // Методы работы со студентами
 
-    // Метод для getAllActiveStudents и getStudentById
     public void parseStudent(ResultSet rs, Student student) throws SQLException {
         student.setId(rs.getInt("id"));
         student.setSurname(rs.getString("surname"));
@@ -102,8 +100,6 @@ public class DBManager implements IDBManager {
         }
     }
 
-    // Методы работы с семестрами
-
     @Override
     public List<Term> getAllActiveTerm() {
         ArrayList<Term> terms = new ArrayList<>();
@@ -124,9 +120,24 @@ public class DBManager implements IDBManager {
         return terms;
     }
 
-    // Методы работы с дисциплинами
+    @Override
+    public Term getTermById(String id) {
+        query = "SELECT * FROM term WHERE id ='" + id + "';";
+        try {
+            ResultSet rs = connect(query);
+            while (rs.next()) {
+                Term term = new Term();
+                term.setId(rs.getInt("id"));
+                term.setTerm(rs.getString("term"));
+                term.setDuration(rs.getString("duration"));
+                return term;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-    // Метод для getDisciplinesByTerm и getAllActiveDisciplines
     public List<Discipline> parseDiscipline(ArrayList<Discipline> disciplines) {
         try {
             ResultSet rs = connect(query);
@@ -160,7 +171,59 @@ public class DBManager implements IDBManager {
     @Override
     public List<Mark> getMarksByStudentAndTerm(String idTerm, String idStudent) {
         List<Mark> marks = new ArrayList<>();
+        query = "SELECT m.id, m.mark, d.id as id_disc, d.discipline FROM mark as m\n" +
+                "left join term_discipline as td on m.id_term_discipline = td.id\n" +
+                "left join discipline as d on td.id_discipline = d.id\n" +
+                "where m.id_student = " + idStudent + " and td.id_term = " + idTerm + " and d.status = 1";
+        try {
+            ResultSet rs = connect(query);
+            while (rs.next()) {
+                Mark mark = new Mark();
+                mark.setId(rs.getInt("id"));
+                mark.setMark(rs.getInt("mark"));
+                mark.setId(rs.getInt("id"));
 
+                Discipline discipline = new Discipline();
+                discipline.setId(rs.getInt("id_disc"));
+                discipline.setDiscipline(rs.getString("discipline"));
+                mark.setDiscipline(discipline);
+
+                marks.add(mark);
+            }
+
+            if (marks.size() == 0 ) {
+                String query1 = "SELECT term_discipline.id_discipline, discipline.discipline FROM term_discipline JOIN discipline on discipline.id = term_discipline.id_discipline WHERE term_discipline.id_term = " + idTerm + " AND discipline.status = 1;";
+                rs = connect(query1);
+                while (rs.next()) {
+                    Mark mark = new Mark();
+                    mark.setId(-1);
+                    mark.setMark(-1);
+
+                    Discipline discipline = new Discipline();
+                    discipline.setId(rs.getInt("id_discipline"));
+                    discipline.setDiscipline(rs.getString("discipline"));
+                    mark.setDiscipline(discipline);
+
+                    marks.add(mark);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return marks;
+    }
+
+    @Override
+    public boolean canLogin(String login, String password, String role) {
+        query = "SELECT * FROM user_role AS ur LEFT JOIN user AS u ON ur.id_user = u.id WHERE ur.id_role = '" + role + "' AND u.login = '" + login + "' AND u.password = '" + password + "';";
+        try {
+            ResultSet rs = connect(query);
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

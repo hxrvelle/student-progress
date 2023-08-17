@@ -16,9 +16,21 @@
     <div class="back_to_main">
       <a href="/">На главную</a>
     </div>
-    <div class="logout">
-      <a href="#">Logout</a>
+    <div class="back">
+      <a href="#" onclick="history.back()">Назад</a>
     </div>
+    <c:choose>
+      <c:when test="${isLogged == true}">
+        <div class="logout">
+          <a href="/logout">Logout</a>
+        </div>
+      </c:when>
+      <c:otherwise>
+        <div class="logout">
+          <a href="/login">Login</a>
+        </div>
+      </c:otherwise>
+    </c:choose>
   </header>
   <section class="title">
     <h2>Система управления студентами и их успеваемостью</h2>
@@ -46,44 +58,51 @@
           <th>Дисциплина</th>
           <th>Оценка</th>
         </tr>
-        <tr>
-          <td>Информатика</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td>Системный Анализ</td>
-          <td>4</td>
-        </tr>
-        <tr>
-          <td>Управление проектами</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td>Основы Дискретной Математики</td>
-          <td>4</td>
-        </tr>
+        <c:forEach items="${marks}" var="mark">
+          <tr>
+            <td>${mark.discipline.discipline}</td>
+            <c:if test="${mark.mark ne -1}">
+              <td>${mark.mark}</td>
+            </c:if>
+            <c:if test="${mark.mark eq -1}">
+              <td>-</td>
+            </c:if>
+          </tr>
+        </c:forEach>
       </table>
 
       <div class="choose-period">
-        <%--@declare id="period"--%>
-        <label class="period-label" for="period">Выберите семестр</label>
-        <select name="period" class="period">
-          <c:forEach items="${terms}" var = "term">
-            <c:choose>
-              <c:when test="${term.id == selectedTerm.id}">
-                <option selected class="data-option" id="${term.id}">${term.term}</option>
-              </c:when>
-              <c:otherwise>
-                <option class="data-option" id="${term.id}">${term.term}</option>
-              </c:otherwise>
-            </c:choose>
-          </c:forEach>
-        </select>
-          <form>
+          <label class="period-label" for="idSelectedTerm">Выберите семестр</label>
+          <form action="/student-progress" method="get" class="form">
+
+            <select name="idSelectedTerm" class="period">
+
+              <c:forEach items="${terms}" var="term">
+                <c:choose>
+                  <c:when test="${term.id == selectedTerm.id}">
+                    <option selected class="data-option" value="${term.id}">${term.term}</option>
+                  </c:when>
+                  <c:otherwise>
+                    <option class="data-option" value="${term.id}">${term.term}</option>
+                  </c:otherwise>
+                </c:choose>
+              </c:forEach>
+
+            </select>
+
+            <input type="hidden" name="idToProgressHidden" value="${student.id}">
             <input type="submit" class="action-button-type3" value="ПРИМЕНИТЬ">
+
           </form>
         <div class="mid-mark">
-          <p>Средняя оценка за семестр: 4,8 балла</p>
+          <p>Средняя оценка за семестр:
+            <c:if test="${middleMark eq -1}">
+              -
+            </c:if>
+            <c:if test="${middleMark ne -1}">
+              ${middleMark}
+            </c:if>
+          </p>
         </div>
       </div>
     </div>
