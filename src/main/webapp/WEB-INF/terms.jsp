@@ -37,16 +37,25 @@
         <div class="choose-period">
             <%--@declare id="period"--%>
             <label class="period-label" for="period">Выберите семестр</label>
-            <select name="period" class="period">
-                <option class="data-option">Выберите семестр</option>
-                <c:forEach items="${terms}" var = "t">
-                    <option class="data-option" id="${t.id}">${t.term}</option>
-                </c:forEach>
-            </select>
-            <button class="action-button-type3" onclick="setSelected()"><a href="#">ПРИМЕНИТЬ</a></button>
+                <form action="/terms" method="get" class="form">
+                    <select name="idSelectedTerm" class="period">
+                        <c:forEach items="${terms}" var="term">
+                            <c:choose>
+                                <c:when test="${term.id == selectedTerm.id}">
+                                    <option selected class="data-option" value="${term.id}">${term.term}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option class="data-option" value="${term.id}">${term.term}</option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </select>
+                    <input type="hidden" value="${term.id}">
+                    <input type="submit" class="action-button-type3" value="ПРИМЕНИТЬ">
+                </form>
         </div>
         <br><br>
-        <p class="duration">Длительность семестра:<c:out value="${terms[1].duration}" /></p>
+        <p class="duration">Длительность семестра: ${duration}</p>
         <br><br>
         <p style="font-weight: bold;">Список дисциплин семестра</p>
         <br>
@@ -55,21 +64,11 @@
                 <tr>
                     <th>Наименование дисциплины</th>
                 </tr>
-                <tr>
-                    <td>Высшая математика</td>
-                </tr>
-                <tr>
-                    <td>История Науки и Техники</td>
-                </tr>
-                <tr>
-                    <td>Политология</td>
-                </tr>
-                <tr>
-                    <td>Информатика</td>
-                </tr>
-                <tr>
-                    <td>Теория Алгоритмизации</td>
-                </tr>
+                <c:forEach items="${disciplines}" var="d">
+                    <tr>
+                        <td id="discipline">${d.discipline}</td>
+                    </tr>
+                </c:forEach>
             </table>
             <div class="buttons">
                 <form action="/term-creating" method="get">

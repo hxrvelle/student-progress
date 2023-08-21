@@ -28,6 +28,14 @@ public interface IDBManager {
 
     List<Discipline> getAllActiveDisciplines();
 
+    Discipline getDisciplineById(int id);
+
+    void createDiscipline(String discipline);
+
+    void modifyDiscipline(String discipline, int id);
+
+    void deleteDiscipline(int id);
+
     List<Mark> getMarksByStudentAndTerm(String idTerm, String idStudent);
 
     boolean canLogin(String login, String password, String role);

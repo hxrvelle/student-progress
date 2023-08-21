@@ -4,6 +4,7 @@
 <head>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" type="text/css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/disciplines-terms-list.css" type="text/css">
+  <script src="${pageContext.request.contextPath}/resources/js/functions.js"></script>
 </head>
 <body>
   <div class="wrapper">
@@ -41,25 +42,27 @@
         </tr>
         <c:forEach items="${disciplines}" var = "d">
           <tr>
-            <td><input type="checkbox"></td>
-            <td>${d.discipline}</td>
+            <td><input type="checkbox" value="${d.id}" name="idDisc"></td>
+            <td id="discipline">${d.discipline}</td>
           </tr>
         </c:forEach>
       </table>
       <div class="buttons">
-        <form action="/discipline-creating" method="get">
+        <form action="/discipline-create" method="get">
           <input type="submit" class="action-button-type2" value="СОЗДАТЬ ДИСЦИПЛИНУ" />
         </form>
-        <form action="/discipline-modifying" method="get">
-          <input type="submit" class="action-button-type2" value="МОДИФИЦИРОВАТЬ ВЫБРАННУЮ ДИСЦИПЛИНУ" />
-        </form>
-        <form action="/" method="get">
-          <input type="submit" class="action-button-type2" value="УДАЛИТЬ ВЫБРАННУЮ ДИСЦИПЛИНУ" />
-        </form>
+        <input type="submit" class="action-button-type2" onclick="modifyDiscipline()" value="МОДИФИЦИРОВАТЬ ВЫБРАННУЮ ДИСЦИПЛИНУ" />
+        <input type="submit" class="action-button-type2" onclick="deleteDiscipline()" value="УДАЛИТЬ ВЫБРАННУЮ ДИСЦИПЛИНУ" />
       </div>
     </div>
     <div class="clearfix"> </div>
   </section>
 </div>
+  <form action="/discipline-modify" method="get" id="formModify">
+    <input type="hidden" id="idToModifyHidden" name="idToModifyHidden">
+  </form>
+  <form action="/discipline-delete" method="post" id="formDelete">
+    <input type="hidden" id="idsToDeleteHidden" name="idsToDeleteHidden">
+  </form>
 </body>
 </html>

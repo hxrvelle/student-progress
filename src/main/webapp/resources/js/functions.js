@@ -45,7 +45,6 @@ function modifyStudent() {
     document.getElementById("idToModifyHidden").value = id;
     document.getElementById('formModify').submit();
 }
-
 function progressStudent() {
     let checkedCheckboxes = document.querySelectorAll('input[name=idStud]:checked');
     if(checkedCheckboxes.length === 0) {
@@ -61,4 +60,35 @@ function progressStudent() {
 
     document.getElementById("idToProgressHidden").value = id;
     document.getElementById('formProgress').submit();
+}
+
+function modifyDiscipline() {
+    let checkedCheckboxes = document.querySelectorAll('input[name=idDisc]:checked');
+    if(checkedCheckboxes.length === 0) {
+        alert("Выберите дисциплину");
+        return;
+    }
+    if (checkedCheckboxes.length > 1) {
+        alert("Выберите одну дисциплину");
+        return;
+    }
+
+    let id = checkedCheckboxes[0].value;
+
+    document.getElementById("idToModifyHidden").value = id;
+    document.getElementById('formModify').submit();
+}
+
+function deleteDiscipline() {
+    let checkedCheckboxes = document.querySelectorAll('input[name=idDisc]:checked');
+    if(checkedCheckboxes.length === 0) {
+        alert("Выберите дисциплину");
+        return;
+    }
+    let ids = "";
+    for(let i = 0; i < checkedCheckboxes.length; i++) {
+        ids = ids + checkedCheckboxes[i].value + " ";
+    }
+    document.getElementById("idsToDeleteHidden").value = ids;
+    document.getElementById('formDelete').submit();
 }

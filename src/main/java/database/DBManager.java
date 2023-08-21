@@ -157,7 +157,7 @@ public class DBManager implements IDBManager {
     @Override
     public List<Discipline> getDisciplinesByTerm(int id) {
         ArrayList<Discipline> disciplines = new ArrayList<>();
-        query = "SELECT * FROM discipline JOIN term_discipline on id_term WHERE id_term ='" + id + "' AND discipline.id = id_discipline;";
+        query = "SELECT * FROM discipline JOIN term_discipline on id_term WHERE id_term ='" + id + "' AND discipline.id = id_discipline AND discipline.status = 1;";
         return parseDiscipline(disciplines);
     }
 
@@ -166,6 +166,53 @@ public class DBManager implements IDBManager {
         ArrayList<Discipline> disciplines = new ArrayList<>();
         query = "SELECT * FROM discipline WHERE status = 1;";
         return parseDiscipline(disciplines);
+    }
+
+    @Override
+    public Discipline getDisciplineById(int id) {
+        query = "SELECT * FROM discipline WHERE id ='" + id + "';";
+        try {
+            ResultSet rs = connect(query);
+            while (rs.next()) {
+                Discipline discipline = new Discipline();
+                discipline.setId(rs.getInt("id"));
+                discipline.setDiscipline(rs.getString("discipline"));
+                return discipline;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void createDiscipline(String discipline) {
+        query = "INSERT INTO `discipline` (`discipline`) VALUES ('" + discipline + "');";
+        try {
+            updateConnect(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void modifyDiscipline(String discipline, int id) {
+        query = "UPDATE `discipline` SET `discipline` ='" + discipline + "' WHERE (`id` ='" + id + "');";
+        try {
+            updateConnect(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteDiscipline(int id) {
+        query = "UPDATE `discipline` SET `status` = '0' WHERE (`id` ='" + id + "');";
+        try {
+            voidConnect(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
