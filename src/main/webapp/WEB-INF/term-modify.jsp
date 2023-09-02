@@ -4,8 +4,9 @@
 <head>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" type="text/css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/term-creating-modifying.css">
+  <script src="${pageContext.request.contextPath}/resources/js/functions.js"></script>
 </head>
-<body>
+<body onload="setSelectedOption();">
 <div class="wrapper">
   <header>
     <div class="logo">
@@ -34,23 +35,29 @@
     <h2>Система управления студентами и их успеваемостью</h2>
   </section>
   <section class="terms">
-    <p>Для создания семестра заполните следующиие данные и нажмите кнопку "Создать"</p>
+    <p>Для создания семестра заполните следующие данные и нажмите кнопку "Создать"</p>
     <br><br>
-    <form action="/term-create" method="post">
+    <form action="/term-modify" method="post">
       <div class="input">
+        <input type="hidden" value="${term.id}" name="id">
         <label for="input-field" class="input-label">Длительность (в неделях)</label>
-        <input class="input-field" type="text" placeholder="24" name="duration">
+        <input class="input-field" type="text" value="${term.duration}" name="duration">
       </div>
       <br><br>
       <div class="scroll">
         <label for="scroll-box" class="input-label" style="margin-right: 33px;">Дисциплины в семестре</label>
         <select class="scroll-box" name="disciplines" multiple>
-          <c:forEach items="${disciplines}" var = "d">
-            <option value="${d.id}">${d.discipline}</option>
+          <c:forEach items="${allDisciplines}" var = "d">
+            <option class="allDisciplines" value="${d.id}">${d.discipline}</option>
+          </c:forEach>
+        </select>
+        <select style="display: none">
+          <c:forEach items="${termDisciplines}" var = "d">
+            <option class="activeDiscipline" value="${d.id}">${d.discipline}</option>
           </c:forEach>
         </select>
       </div>
-      <input type="submit" class="action-button-type1" value="СОЗДАТЬ" />
+      <input type="submit" class="action-button-type1" value="ПРИМЕНИТЬ" />
     </form>
     <br><br>
   </section>

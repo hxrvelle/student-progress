@@ -138,6 +138,78 @@ public class DBManager implements IDBManager {
         return null;
     }
 
+    @Override
+    public void createTerm(String duration, String[] disciplines) {
+        String query1 = "SELECT term FROM term ORDER BY id DESC LIMIT 1;";
+        String lastTermName = "";
+        try {
+            ResultSet rs = connect(query1);
+            while (rs.next()) {
+                lastTermName = rs.getString("term");
+            }
+            String[] partsOfLastName = lastTermName.split(" ");
+            int numOfTerm = Integer.parseInt(partsOfLastName[1]);
+            numOfTerm++;
+
+            String query2 = "INSERT INTO `term` (`term`, `duration`) VALUES ('Семестр " + numOfTerm + "', '"+duration+"');";
+            updateConnect(query2);
+
+            String query3 = "SELECT id FROM term ORDER BY id DESC LIMIT 1;";
+            rs = connect(query3);
+            int newTermId = 0;
+            while (rs.next()) {
+                newTermId = rs.getInt("id");
+            }
+
+            for (String idDis:disciplines) {
+                String query4 = "INSERT INTO `term_discipline` (`id_term`, `id_discipline`) VALUES ('"+newTermId+"', '"+idDis+"');";
+                updateConnect(query4);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void modifyTerm(String duration, String[] disciplines, int termId) {
+        query = "UPDATE `term` SET `duration` = '" + duration + "' WHERE (`id` ='" + termId + "');";
+        try {
+            updateConnect(query);
+
+            String query1 = "SELECT * FROM term_discipline WHERE (`id_term` = '" + termId + "');";
+            ArrayList<String> ids = new ArrayList<>();
+            ResultSet rs = connect(query1);
+            while (rs.next()) {
+                ids.add(rs.getString("id"));
+            }
+
+            for (String id:ids) {
+                String query2 = "DELETE FROM `mark` WHERE (`id_term_discipline` = '" + id + "');";
+                voidConnect(query2);
+            }
+            
+            String query3 = "DELETE FROM `term_discipline` WHERE (`id_term` = '" + termId + "');";
+            voidConnect(query3);
+
+            for (String idDis:disciplines) {
+                String query4 = "INSERT INTO `term_discipline` (`id_term`, `id_discipline`) VALUES ('" + termId + "', '" + idDis + "');";
+                updateConnect(query4);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteTerm(int termId) {
+        query = "UPDATE `term` SET `status` = '0' WHERE (`id` ='" + termId + "');";
+        try {
+            voidConnect(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Discipline> parseDiscipline(ArrayList<Discipline> disciplines) {
         try {
             ResultSet rs = connect(query);

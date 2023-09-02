@@ -71,19 +71,24 @@
                 </c:forEach>
             </table>
             <div class="buttons">
-                <form action="/term-creating" method="get">
+                <form action="/term-create" method="get">
                     <input type="submit" class="action-button-type2" value="СОЗДАТЬ СЕМЕСТР" />
                 </form>
-                <form action="/term-modifying" method="get">
+                <form action="/term-modify" method="get">
+                    <input type="hidden" name="idTermToModify" value="${selectedTerm.id}">
                     <input type="submit" class="action-button-type2" value="МОДИФИЦИРОВАТЬ ТЕКУЩИЙ СЕМЕСТР" />
                 </form>
-                <form action="/" method="get">
+                <form action="/term-delete" method="get">
+                    <input type="hidden" name="idTermToDelete" value="${selectedTerm.id}">
                     <input type="submit" class="action-button-type2" value="УДАЛИТЬ ТЕКУЩИЙ СЕМЕСТР" />
                 </form>
             </div>
         </div>
         <div class="clearfix"> </div>
     </section>
+    <form action="/term-modify" method="get" id="formModify">
+        <input type="hidden" id="idToModifyHidden" name="idToModifyHidden">
+    </form>
 </div>
 </body>
 </html>

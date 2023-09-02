@@ -37,7 +37,7 @@ public class TermsController extends HttpServlet {
             selectedTerm = manager.getTermById(idSelectedTerm);
             req.setAttribute("selectedTerm", selectedTerm);
 
-            duration = terms.get(Integer.parseInt(idSelectedTerm) - 1).getDuration();
+            duration = manager.getTermById(idSelectedTerm).getDuration();
             req.setAttribute("duration", duration);
 
             disciplines = manager.getDisciplinesByTerm(Integer.parseInt(idSelectedTerm));

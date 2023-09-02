@@ -92,3 +92,18 @@ function deleteDiscipline() {
     document.getElementById("idsToDeleteHidden").value = ids;
     document.getElementById('formDelete').submit();
 }
+
+function setSelectedOption() {
+    let activeDiscipline = document.getElementsByClassName("activeDiscipline");
+    let allDiscipline = document.getElementsByClassName("allDisciplines");
+
+    for (i = 0; i < allDiscipline.length; i++) {
+        let dis = allDiscipline[i];
+        for (j = 0; j < activeDiscipline.length; j++) {
+            let aDis = activeDiscipline[j];
+            if (dis.text == aDis.text) {
+                dis.setAttribute("selected", true)
+            }
+        }
+    }
+}

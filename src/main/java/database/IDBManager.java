@@ -22,6 +22,12 @@ public interface IDBManager {
     List<Term> getAllActiveTerm();
     Term getTermById(String id);
 
+    void createTerm(String duration, String[] disciplines);
+
+    void modifyTerm(String duration, String[] disciplines, int termId);
+
+    void deleteTerm(int termId);
+
     List<Discipline> getDisciplinesByTerm(int id);
 
     //TO получение оценок по десциплинам у студента

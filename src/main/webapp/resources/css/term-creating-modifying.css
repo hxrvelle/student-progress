@@ -1,0 +1,50 @@
+.input, .scroll {
+    width: 100%;
+    margin-left: 222px;
+    box-sizing: border-box;
+}
+
+.input-field {
+    display: block;
+}
+
+.input-label {
+    float: left;
+    line-height: 50px;
+    margin-right: 20px;
+}
+
+.action-button-type1 {
+    display: block;
+}
+
+.scroll-box {
+    display: block;
+    width: 326px;
+    height: 150px;
+    border: 1px solid rgb(76, 76, 76);
+    border-radius: 5px;
+    overflow: auto;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.scroll-box::-webkit-scrollbar {
+    width: 15px;
+}
+
+.scroll-box::-webkit-scrollbar-track {
+   border-left: 1px solid rgb(76, 76, 76);
+   border-radius: 5px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+    background: rgb(38, 108, 247);
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+.scroll-box option {
+    line-height: 30px;
+}
