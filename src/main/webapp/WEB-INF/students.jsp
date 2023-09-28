@@ -37,23 +37,19 @@
             <li>
                 <input type="submit" class="action-button-type2" onclick="progressStudent()" value="ПРОСМОТРЕТЬ УСПЕВАЕМОСТЬ ВЫБРАННОГО СТУДЕНТОВ" />
             </li>
-            <c:if test="${role eq 1}">
                 <li>
                     <form action="/student-create" method="get">
                         <input type="submit" class="action-button-type2" value="СОЗДАТЬ СТУДЕНТА" />
                     </form>
                 </li>
-            </c:if>
         </ul>
         <ul class="second-row">
-            <c:if test="${role eq 1}">
                 <li>
                     <input type="submit" class="action-button-type2" onclick="modifyStudent()" value="МОДИФИЦИРОВАТЬ ВЫБРАННОГО СТУДЕНТА" />
                 </li>
                 <li>
                     <input type="submit" class="action-button-type2" onclick="deleteStudents()" value="УДАЛИТЬ ВЫБРАННЫХ СТУДЕНТОВ" />
                 </li>
-            </c:if>
         </ul>
     </section>
 
