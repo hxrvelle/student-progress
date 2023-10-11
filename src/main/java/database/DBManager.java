@@ -106,18 +106,7 @@ public class DBManager implements IDBManager {
 
     @Override
     public void deleteMark(String idStudent, String idTerm, String idDiscipline, String mark) {
-        int idTermDiscipline = 0;
-        String queryToFindIdTermDiscipline = "SELECT id FROM students.term_discipline WHERE id_term = '" + idTerm + "' AND id_discipline = '" + idDiscipline + "';";
-        try {
-            ResultSet rs = connect(queryToFindIdTermDiscipline);
-            while (rs.next()) {
-                idTermDiscipline = rs.getInt("id");
-            }
-
-            String queryToMarkId = "SELECT id from students.mark WHERE id_student = '" + idStudent + "' AND id_term_discipline = '" + idTermDiscipline + "' AND mark = 5;";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //in progress
     }
 
     @Override
