@@ -1,12 +1,10 @@
 package database;
 
-import entity.Discipline;
-import entity.Student;
-import entity.Term;
-import entity.Mark;
+import entity.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 
 public interface IDBManager {
     List<Student> getAllActiveStudents();
@@ -18,6 +16,9 @@ public interface IDBManager {
     Student getStudentById(int id);
 
     void modifyStudent(int id, String surname, String name, String group, String date);
+
+    void setMark(String idStudent, String idTerm, String idDiscipline, String mark);
+    void deleteMark(String idStudent, String idTerm, String idDiscipline, String mark);
 
     List<Term> getAllActiveTerm();
     Term getTermById(String id);

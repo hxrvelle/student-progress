@@ -6,8 +6,9 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" type="text/css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/student-progress.css" type="text/css">
   <script src="${pageContext.request.contextPath}/resources/js/functions.js"></script>
+  <script src="https://kit.fontawesome.com/47ae1cb85a.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="setIdDiscipline()">
 <div class="wrapper">
   <header>
     <div class="logo">
@@ -53,23 +54,44 @@
       </tr>
     </table>
     <div class="progress">
-      <table class="table-type3">
+      <form action="/student-progress" method="post">
+
+      <table class="table-type3" name="disTable" style="width: 25%">
         <tr>
           <th>Дисциплина</th>
-          <th>Оценка</th>
         </tr>
-        <c:forEach items="${marks}" var="mark">
+        <c:forEach items="${disciplines}" var="discipline">
           <tr>
-            <td>${mark.discipline.discipline}</td>
-            <c:if test="${mark.mark ne -1}">
-              <td>${mark.mark}</td>
-            </c:if>
-            <c:if test="${mark.mark eq -1}">
-              <td>-</td>
-            </c:if>
+            <td name="disCell">${discipline.discipline}<input type="hidden" name="disciplineIds" value="${discipline.id}"></td>
           </tr>
         </c:forEach>
       </table>
+
+      <table class="table-type3" name="marksTable" style="width: 25%; text-align: center;">
+        <tr>
+          <th>Оценка</th>
+        </tr>
+        <c:forEach items="${marks}" var="mark">
+        <tr>
+          <c:if test="${mark.mark ne -1 && mark.mark ne 0}">
+            <td name="markCell">
+                <input type="hidden" name="disciplineId">
+                ${mark.mark}
+            </td>
+          </c:if>
+          <c:if test="${mark.mark eq 0 || mark.mark eq -1}">
+            <td name="markCell">
+              <input type="hidden" name="disciplineId">
+              <input name="mark" type="text" class="input-field-type-2">
+              <button type="submit" class="action-button-type4"><i class="fa-solid fa-check" style="color: #47cc00;"></i></button>
+            </td>
+          </c:if>
+        </tr>
+        </c:forEach>
+      </table>
+      <input type="hidden" name="selectedDis">
+
+      </form>
 
       <div class="choose-period">
           <label class="period-label" for="idSelectedTerm">Выберите семестр</label>
