@@ -220,6 +220,27 @@ header a:hover {
     cursor: pointer;
 }
 
+.action-button-type4 {
+    width: 50px;
+    height: 25px;
+    border: 1px solid #474747;
+    border-radius: 30px;
+    font-size: 18px;
+}
+
+.action-button-type4:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.fa-solid fa-check {
+    width: 50px;
+    height: 25px;
+    border: 1px solid rgb(236, 86, 49);
+    border-radius: 30px;
+    font-size: 13px;
+}
+
 /* Поле ввода */
 
 .input-field {
@@ -229,6 +250,17 @@ header a:hover {
     border-radius: 30px;
     padding-left: 20px;
     font-size: 18px;
+    box-sizing: border-box;
+}
+
+.input-field-type-2 {
+    width: 200px;
+    line-height: 25px;
+    border: 1px solid rgb(76, 76, 76);
+    border-radius: 30px;
+    padding-left: 20px;
+    font-size: 18px;
+    text-align: center;
     box-sizing: border-box;
 }
 

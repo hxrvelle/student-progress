@@ -107,3 +107,38 @@ function setSelectedOption() {
         }
     }
 }
+
+function setIdDiscipline() {
+    let disIds = document.getElementsByName("disciplineIds");
+    let markCells = document.getElementsByName("disciplineId");
+
+    for (i = 0; i < disIds.length; i++) {
+        let disId = disIds[i].value;
+        let markCell = markCells[i];
+        markCell.setAttribute("value", disId);
+    }
+
+    let inputs = document.getElementsByName("markCell");
+    let disciplines = document.getElementsByName("disciplineIds");
+    let selected = document.getElementsByName("selectedDis");
+
+    inputs.forEach((item, index) => {
+        let i = (`${index}`);
+        if (inputs[i].innerHTML.includes("button")) {
+            let input = document.getElementsByName("mark");
+            if (input[i] != undefined) {
+                input[i].addEventListener("click", myFunction);
+                function myFunction() {
+                    let dis = disciplines[i].value;
+                    selected[0].setAttribute("value", dis);
+                }
+            } else {
+                input[0].addEventListener("click", myFunction);
+                function myFunction() {
+                    let dis = disciplines[i].value;
+                    selected[0].setAttribute("value", dis);
+                }
+            }
+        }
+    });
+}
